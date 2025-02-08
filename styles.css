@@ -51,6 +51,7 @@ ul {
 
 li {
     margin-bottom: 8px;
+    display: block;  /* Ensures vertical stacking */
 }
 
 a {
@@ -64,25 +65,7 @@ a:hover {
     text-decoration: underline;
 }
 
-#importantLinks ul {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-}
-
-#llm ul, #publicCelebrity ul, #socialMedia ul {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
-}
-
 #problemSolving ul ul {
     margin-left: 20px;
     margin-top: 5px;
-}
-
-@media (max-width: 600px) {
-    #importantLinks ul {
-        grid-template-columns: repeat(2, 1fr);
-    }
 }
