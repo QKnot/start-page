@@ -105,6 +105,10 @@
             background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
         }
 
+        .btn-warning {
+            background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%);
+        }
+
         .task-list {
             margin-top: 30px;
         }
@@ -132,6 +136,29 @@
 
         .task-item.completed .task-name {
             text-decoration: line-through;
+        }
+
+        .task-item.editing {
+            background: #fff3cd;
+            border-color: #ffeaa7;
+        }
+
+        .edit-form {
+            margin-top: 15px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid #dee2e6;
+        }
+
+        .edit-form input {
+            margin-bottom: 10px;
+        }
+
+        .edit-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
         }
 
         .task-name {
@@ -345,7 +372,66 @@
             }
         }
 
-        // Delete task
+        // Edit task
+        function editTask(id) {
+            const taskElement = document.querySelector(`[data-id="${id}"]`);
+            if (taskElement.classList.contains('editing')) {
+                // Cancel edit mode
+                renderTasks();
+                return;
+            }
+            
+            const task = tasks.find(t => t.id === id);
+            if (!task) return;
+            
+            // Add editing class
+            taskElement.classList.add('editing');
+            
+            // Convert deadline to datetime-local format
+            const deadlineForInput = new Date(task.deadline).toISOString().slice(0, 16);
+            
+            // Create edit form
+            const editForm = `
+                <div class="edit-form">
+                    <input type="text" id="editName${id}" value="${task.name}" placeholder="Task name">
+                    <input type="datetime-local" id="editDeadline${id}" value="${deadlineForInput}">
+                    <div class="edit-actions">
+                        <button class="btn btn-small btn-success" onclick="saveEdit(${id})">💾 Save</button>
+                        <button class="btn btn-small" onclick="cancelEdit(${id})">✕ Cancel</button>
+                    </div>
+                </div>
+            `;
+            
+            taskElement.insertAdjacentHTML('beforeend', editForm);
+        }
+
+        // Save edited task
+        function saveEdit(id) {
+            const newName = document.getElementById(`editName${id}`).value.trim();
+            const newDeadline = document.getElementById(`editDeadline${id}`).value;
+            
+            if (!newName || !newDeadline) {
+                alert('Please fill in both task name and deadline');
+                return;
+            }
+            
+            const task = tasks.find(t => t.id === id);
+            if (task) {
+                task.name = newName;
+                task.deadline = newDeadline;
+                task.updatedAt = new Date().toISOString();
+                
+                saveTasks();
+                renderTasks();
+                updateStats();
+                updateJSONDisplay();
+            }
+        }
+
+        // Cancel edit
+        function cancelEdit(id) {
+            renderTasks();
+        }
         function deleteTask(id) {
             if (confirm('Are you sure you want to delete this task?')) {
                 tasks = tasks.filter(t => t.id !== id);
@@ -417,6 +503,9 @@
                                 onclick="toggleTask(${task.id})">
                             ${task.completed ? '↶ Undo' : '✓ Complete'}
                         </button>
+                        <button class="btn btn-small btn-warning" onclick="editTask(${task.id})">
+                            ✏️ Edit
+                        </button>
                         <button class="btn btn-small btn-danger" onclick="deleteTask(${task.id})">
                             🗑 Delete
                         </button>
@@ -447,7 +536,8 @@
                     deadline: task.deadline,
                     completed: task.completed,
                     createdAt: task.createdAt,
-                    completedAt: task.completedAt || null
+                    completedAt: task.completedAt || null,
+                    updatedAt: task.updatedAt || null
                 })),
                 metadata: {
                     totalTasks: tasks.length,
