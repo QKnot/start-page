@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple To-Do App</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+            font-weight: 300;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .task-form {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            border: 1px solid #e9ecef;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #495057;
+        }
+
+        input[type="text"], input[type="datetime-local"] {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #dee2e6;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        input[type="text"]:focus, input[type="datetime-local"]:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-small {
+            padding: 8px 16px;
+            font-size: 14px;
+            margin: 0 5px;
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+        }
+
+        .task-list {
+            margin-top: 30px;
+        }
+
+        .task-item {
+            background: white;
+            border: 1px solid #e9ecef;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .task-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .task-item.completed {
+            background: #f8f9fa;
+            opacity: 0.7;
+        }
+
+        .task-item.completed .task-name {
+            text-decoration: line-through;
+        }
+
+        .task-name {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .task-deadline {
+            color: #6c757d;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .task-deadline.overdue {
+            color: #dc3545;
+            font-weight: 600;
+        }
+
+        .task-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .json-section {
+            background: #f1f3f4;
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 30px;
+        }
+
+        .json-display {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            white-space: pre-wrap;
+            max-height: 300px;
+            overflow-y: auto;
+            border: 1px solid #4a5568;
+        }
+
+        .json-controls {
+            margin-bottom: 15px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .stat-label {
+            color: #6c757d;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+                margin: 10px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .task-actions {
+                flex-direction: column;
+            }
+            
+            .json-controls {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>✓ My Tasks</h1>
+        
+        <div class="stats" id="stats">
+            <div class="stat-card">
+                <div class="stat-number" id="totalTasks">0</div>
+                <div class="stat-label">Total Tasks</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="completedTasks">0</div>
+                <div class="stat-label">Completed</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="pendingTasks">0</div>
+                <div class="stat-label">Pending</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="overdueTasks">0</div>
+                <div class="stat-label">Overdue</div>
+            </div>
+        </div>
+
+        <form class="task-form" id="taskForm">
+            <div class="form-group">
+                <label for="taskName">Task Name:</label>
+                <input type="text" id="taskName" required placeholder="Enter your task...">
+            </div>
+            <div class="form-group">
+                <label for="taskDeadline">Deadline:</label>
+                <input type="datetime-local" id="taskDeadline" required>
+            </div>
+            <button type="submit" class="btn">Add Task</button>
+        </form>
+
+        <div class="task-list">
+            <div id="taskContainer"></div>
+        </div>
+
+        <div class="json-section">
+            <h3>JSON Data Management</h3>
+            <div class="json-controls">
+                <button class="btn btn-small" onclick="exportJSON()">Export JSON</button>
+                <button class="btn btn-small" onclick="importJSON()">Import JSON</button>
+                <button class="btn btn-small btn-danger" onclick="clearAllTasks()">Clear All</button>
+            </div>
+            <div class="json-display" id="jsonDisplay"></div>
+        </div>
+    </div>
+
+    <script>
+        let tasks = [];
+        let taskIdCounter = 1;
+
+        // Load tasks from memory on page load
+        function loadTasks() {
+            const savedTasks = JSON.parse(localStorage.getItem('todoTasks') || '[]');
+            tasks = savedTasks.length > 0 ? savedTasks : [];
+            if (tasks.length > 0) {
+                taskIdCounter = Math.max(...tasks.map(t => t.id)) + 1;
+            }
+            renderTasks();
+            updateStats();
+            updateJSONDisplay();
+        }
+
+        // Save tasks to memory
+        function saveTasks() {
+            localStorage.setItem('todoTasks', JSON.stringify(tasks));
+        }
+
+        // Add new task
+        document.getElementById('taskForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const taskName = document.getElementById('taskName').value.trim();
+            const taskDeadline = document.getElementById('taskDeadline').value;
+            
+            if (taskName && taskDeadline) {
+                const newTask = {
+                    id: taskIdCounter++,
+                    name: taskName,
+                    deadline: taskDeadline,
+                    completed: false,
+                    createdAt: new Date().toISOString()
+                };
+                
+                tasks.push(newTask);
+                saveTasks();
+                renderTasks();
+                updateStats();
+                updateJSONDisplay();
+                
+                // Clear form
+                document.getElementById('taskName').value = '';
+                document.getElementById('taskDeadline').value = '';
+            }
+        });
+
+        // Toggle task completion
+        function toggleTask(id) {
+            const task = tasks.find(t => t.id === id);
+            if (task) {
+                task.completed = !task.completed;
+                task.completedAt = task.completed ? new Date().toISOString() : null;
+                saveTasks();
+                renderTasks();
+                updateStats();
+                updateJSONDisplay();
+            }
+        }
+
+        // Delete task
+        function deleteTask(id) {
+            if (confirm('Are you sure you want to delete this task?')) {
+                tasks = tasks.filter(t => t.id !== id);
+                saveTasks();
+                renderTasks();
+                updateStats();
+                updateJSONDisplay();
+            }
+        }
+
+        // Check if task is overdue
+        function isOverdue(deadline, completed) {
+            if (completed) return false;
+            return new Date(deadline) < new Date();
+        }
+
+        // Format deadline for display
+        function formatDeadline(deadline) {
+            const date = new Date(deadline);
+            const now = new Date();
+            const diffTime = date - now;
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            
+            const formatted = date.toLocaleString('en-US', {
+                weekday: 'short',
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            
+            if (diffDays < 0) {
+                return `${formatted} (${Math.abs(diffDays)} days overdue)`;
+            } else if (diffDays === 0) {
+                return `${formatted} (Today)`;
+            } else if (diffDays === 1) {
+                return `${formatted} (Tomorrow)`;
+            } else {
+                return `${formatted} (${diffDays} days left)`;
+            }
+        }
+
+        // Render tasks
+        function renderTasks() {
+            const container = document.getElementById('taskContainer');
+            
+            if (tasks.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: #6c757d; font-style: italic; padding: 40px;">No tasks yet. Add your first task above!</p>';
+                return;
+            }
+            
+            // Sort tasks: incomplete first, then by deadline
+            const sortedTasks = [...tasks].sort((a, b) => {
+                if (a.completed !== b.completed) {
+                    return a.completed ? 1 : -1;
+                }
+                return new Date(a.deadline) - new Date(b.deadline);
+            });
+            
+            container.innerHTML = sortedTasks.map(task => `
+                <div class="task-item ${task.completed ? 'completed' : ''}" data-id="${task.id}">
+                    <div class="task-name">${task.name}</div>
+                    <div class="task-deadline ${isOverdue(task.deadline, task.completed) ? 'overdue' : ''}">
+                        📅 ${formatDeadline(task.deadline)}
+                    </div>
+                    <div class="task-actions">
+                        <button class="btn btn-small ${task.completed ? 'btn-danger' : 'btn-success'}" 
+                                onclick="toggleTask(${task.id})">
+                            ${task.completed ? '↶ Undo' : '✓ Complete'}
+                        </button>
+                        <button class="btn btn-small btn-danger" onclick="deleteTask(${task.id})">
+                            🗑 Delete
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Update statistics
+        function updateStats() {
+            const total = tasks.length;
+            const completed = tasks.filter(t => t.completed).length;
+            const pending = total - completed;
+            const overdue = tasks.filter(t => isOverdue(t.deadline, t.completed)).length;
+            
+            document.getElementById('totalTasks').textContent = total;
+            document.getElementById('completedTasks').textContent = completed;
+            document.getElementById('pendingTasks').textContent = pending;
+            document.getElementById('overdueTasks').textContent = overdue;
+        }
+
+        // Update JSON display
+        function updateJSONDisplay() {
+            const jsonData = {
+                tasks: tasks.map(task => ({
+                    id: task.id,
+                    name: task.name,
+                    deadline: task.deadline,
+                    completed: task.completed,
+                    createdAt: task.createdAt,
+                    completedAt: task.completedAt || null
+                })),
+                metadata: {
+                    totalTasks: tasks.length,
+                    exportedAt: new Date().toISOString()
+                }
+            };
+            
+            document.getElementById('jsonDisplay').textContent = JSON.stringify(jsonData, null, 2);
+        }
+
+        // Export JSON
+        function exportJSON() {
+            const jsonData = {
+                tasks: tasks,
+                metadata: {
+                    exportedAt: new Date().toISOString(),
+                    totalTasks: tasks.length
+                }
+            };
+            
+            const dataStr = JSON.stringify(jsonData, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            const url = URL.createObjectURL(dataBlob);
+            
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `tasks-${new Date().toISOString().split('T')[0]}.json`;
+            link.click();
+            
+            URL.revokeObjectURL(url);
+        }
+
+        // Import JSON
+        function importJSON() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.json';
+            
+            input.onchange = function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        try {
+                            const jsonData = JSON.parse(e.target.result);
+                            
+                            if (jsonData.tasks && Array.isArray(jsonData.tasks)) {
+                                if (confirm('This will replace all current tasks. Continue?')) {
+                                    tasks = jsonData.tasks;
+                                    taskIdCounter = tasks.length > 0 ? Math.max(...tasks.map(t => t.id)) + 1 : 1;
+                                    saveTasks();
+                                    renderTasks();
+                                    updateStats();
+                                    updateJSONDisplay();
+                                    alert('Tasks imported successfully!');
+                                }
+                            } else {
+                                alert('Invalid JSON format. Please ensure the file contains a tasks array.');
+                            }
+                        } catch (error) {
+                            alert('Error reading JSON file: ' + error.message);
+                        }
+                    };
+                    reader.readAsText(file);
+                }
+            };
+            
+            input.click();
+        }
+
+        // Clear all tasks
+        function clearAllTasks() {
+            if (confirm('Are you sure you want to delete all tasks? This cannot be undone.')) {
+                tasks = [];
+                taskIdCounter = 1;
+                saveTasks();
+                renderTasks();
+                updateStats();
+                updateJSONDisplay();
+            }
+        }
+
+        // Initialize app
+        loadTasks();
+    </script>
+</body>
+</html>
