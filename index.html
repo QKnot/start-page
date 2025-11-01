@@ -238,40 +238,6 @@
             <h1><a href="https://qknot.github.io/Portfolio/" target="_blank">Rahul Kumar Ghosh</a></h1>
             <h3>B.Sc. in Computer Science and Engineering</h3>
         </header>
-
-        <div class="time-card card">
-            <h2>Current Time</h2>
-            <div id="localTime" class="time-display"></div>
-            <div id="localDate" class="time-display" style="font-size: 1.2rem;"></div>
-        </div>
-
-        <div class="timer-section">
-            <div class="tab-buttons">
-                <button id="timerTab" class="tab-button active">Timer</button>
-                <button id="stopwatchTab" class="tab-button">Stopwatch</button>
-            </div>
-            
-            <div id="timerContent" class="tab-content active">
-                <div class="timer-controls">
-                    <input type="number" id="minutes" min="0" max="180" value="25" class="timer-input">
-                    <label for="minutes">minutes</label>
-                    <button id="startTimer" class="timer-button">Start</button>
-                    <button id="resetTimer" class="timer-button">Reset</button>
-                </div>
-                <div id="timerDisplay" class="time-display">25:00</div>
-            </div>
-            
-            <div id="stopwatchContent" class="tab-content">
-                <div class="timer-controls">
-                    <button id="startStopwatch" class="timer-button">Start</button>
-                    <button id="lapStopwatch" class="timer-button" disabled>Lap</button>
-                    <button id="resetStopwatch" class="timer-button">Reset</button>
-                </div>
-                <div id="stopwatchDisplay" class="time-display">00:00:00</div>
-                <div id="laps" class="laps-container"></div>
-            </div>
-        </div>
-
         <div class="grid">
             <div class="card">
                 <h2>Important Links</h2>
@@ -404,6 +370,37 @@
                 <ul>
                     <li><a href="https://www.chess.com/home" target="_blank">Chess</a></li>
                 </ul>
+            </div>
+        </div>
+        <div class="time-card card">
+            <h2>Current Time</h2>
+            <div id="localTime" class="time-display"></div>
+            <div id="localDate" class="time-display" style="font-size: 1.2rem;"></div>
+        </div>
+        <div class="timer-section">
+            <div class="tab-buttons">
+                <button id="timerTab" class="tab-button active">Timer</button>
+                <button id="stopwatchTab" class="tab-button">Stopwatch</button>
+            </div>
+            
+            <div id="timerContent" class="tab-content active">
+                <div class="timer-controls">
+                    <input type="number" id="minutes" min="0" max="180" value="25" class="timer-input">
+                    <label for="minutes">minutes</label>
+                    <button id="startTimer" class="timer-button">Start</button>
+                    <button id="resetTimer" class="timer-button">Reset</button>
+                </div>
+                <div id="timerDisplay" class="time-display">25:00</div>
+            </div>
+            
+            <div id="stopwatchContent" class="tab-content">
+                <div class="timer-controls">
+                    <button id="startStopwatch" class="timer-button">Start</button>
+                    <button id="lapStopwatch" class="timer-button" disabled>Lap</button>
+                    <button id="resetStopwatch" class="timer-button">Reset</button>
+                </div>
+                <div id="stopwatchDisplay" class="time-display">00:00:00</div>
+                <div id="laps" class="laps-container"></div>
             </div>
         </div>
     </div>
