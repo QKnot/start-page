@@ -1,221 +1,68 @@
-function updateLocalTime() {
+// DOM Elements
+const elements = {
+    clockTime: document.getElementById('clockTime'),
+    clockDate: document.getElementById('clockDate'),
+    searchInput: document.getElementById('searchInput'),
+    cards: document.querySelectorAll('.card')
+};
+
+// Simple Clock
+function updateTime() {
     const now = new Date();
-    const timeString = now.toLocaleTimeString();
-    const dateString = now.toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' });
-    const dayName = now.toLocaleDateString('en-US', { weekday: 'long' });
-    document.getElementById('localTime').textContent = `${timeString}`;
-    document.getElementById('localDate').textContent = `${dayName} ${dateString}`;
-}
-
-// Tab switching functionality
-function setupTabs() {
-    const timerTab = document.getElementById('timerTab');
-    const stopwatchTab = document.getElementById('stopwatchTab');
-    const timerContent = document.getElementById('timerContent');
-    const stopwatchContent = document.getElementById('stopwatchContent');
-    
-    timerTab.addEventListener('click', function() {
-        timerTab.classList.add('active');
-        stopwatchTab.classList.remove('active');
-        timerContent.classList.add('active');
-        stopwatchContent.classList.remove('active');
+    const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    const dateStr = now.toLocaleDateString('en-US', dateOptions);
+    const timeStr = now.toLocaleTimeString('en-US', {
+        hour12: false,
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
     });
-    
-    stopwatchTab.addEventListener('click', function() {
-        stopwatchTab.classList.add('active');
-        timerTab.classList.remove('active');
-        stopwatchContent.classList.add('active');
-        timerContent.classList.remove('active');
-    });
+
+    if (elements.clockTime) elements.clockTime.textContent = timeStr;
+    if (elements.clockDate) elements.clockDate.textContent = dateStr;
 }
 
-// Timer functionality
-let timerInterval;
-let seconds = 1500; // Default 25 minutes
+// Global Search Functionality
+function setupSearch() {
+    if (!elements.searchInput) return;
 
-function updateTimerDisplay() {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    document.getElementById('timerDisplay').textContent = 
-        `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-}
+    elements.searchInput.addEventListener('input', (e) => {
+        const query = e.target.value.toLowerCase();
 
-function startTimer() {
-    // Check if we're resuming or starting fresh
-    if (document.getElementById('startTimer').textContent === 'Start') {
-        // Get minutes from input
-        const minutesInput = document.getElementById('minutes');
-        seconds = parseInt(minutesInput.value) * 60;
-        updateTimerDisplay();
-    }
-    
-    // Clear any existing interval
-    clearInterval(timerInterval);
-    
-    // Start the countdown
-    timerInterval = setInterval(() => {
-        seconds--;
-        updateTimerDisplay();
-        
-        if (seconds <= 0) {
-            clearInterval(timerInterval);
-            alert('Timer completed!');
-            document.getElementById('startTimer').textContent = 'Start';
-        }
-    }, 1000);
-    
-    // Change button text
-    document.getElementById('startTimer').textContent = 'Pause';
-    document.getElementById('startTimer').onclick = pauseTimer;
-}
+        elements.cards.forEach(card => {
+            const links = card.querySelectorAll('a');
+            let hasMatch = false;
 
-function pauseTimer() {
-    clearInterval(timerInterval);
-    document.getElementById('startTimer').textContent = 'Resume';
-    document.getElementById('startTimer').onclick = startTimer;
-}
+            links.forEach(link => {
+                const text = link.textContent.toLowerCase();
+                if (text.includes(query)) {
+                    link.parentElement.style.display = 'block';
+                    hasMatch = true;
+                } else {
+                    link.parentElement.style.display = 'none';
+                }
+            });
 
-function resetTimer() {
-    clearInterval(timerInterval);
-    const minutesInput = document.getElementById('minutes');
-    seconds = parseInt(minutesInput.value) * 60;
-    updateTimerDisplay();
-    document.getElementById('startTimer').textContent = 'Start';
-    document.getElementById('startTimer').onclick = startTimer;
-}
-
-// Stopwatch functionality
-let stopwatchInterval;
-let stopwatchRunning = false;
-let stopwatchTime = 0;
-let lapCount = 0;
-
-function updateStopwatchDisplay() {
-    const hours = Math.floor(stopwatchTime / 3600000);
-    const minutes = Math.floor((stopwatchTime % 3600000) / 60000);
-    const seconds = Math.floor((stopwatchTime % 60000) / 1000);
-    const milliseconds = Math.floor((stopwatchTime % 1000) / 10);
-    
-    document.getElementById('stopwatchDisplay').textContent = 
-        `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}.${milliseconds.toString().padStart(2, '0')}`;
-}
-
-function startStopwatch() {
-    if (!stopwatchRunning) {
-        const startTime = Date.now() - stopwatchTime;
-        stopwatchInterval = setInterval(() => {
-            stopwatchTime = Date.now() - startTime;
-            updateStopwatchDisplay();
-        }, 10);
-        
-        document.getElementById('startStopwatch').textContent = 'Pause';
-        document.getElementById('lapStopwatch').disabled = false;
-        stopwatchRunning = true;
-    } else {
-        clearInterval(stopwatchInterval);
-        document.getElementById('startStopwatch').textContent = 'Resume';
-        stopwatchRunning = false;
-    }
-}
-
-function lapStopwatch() {
-    if (stopwatchRunning) {
-        lapCount++;
-        const lapTime = stopwatchTime;
-        
-        // Create lap item container
-        const lapItem = document.createElement('div');
-        lapItem.className = 'lap-item';
-        
-        // Format time
-        const hours = Math.floor(lapTime / 3600000);
-        const minutes = Math.floor((lapTime % 3600000) / 60000);
-        const seconds = Math.floor((lapTime % 60000) / 1000);
-        const milliseconds = Math.floor((lapTime % 1000) / 10);
-        const timeString = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}.${milliseconds.toString().padStart(2, '0')}`;
-        
-        // Create elements for the lap display
-        const lapNumber = document.createElement('span');
-        lapNumber.className = 'lap-number';
-        lapNumber.textContent = `Lap ${lapCount}: `;
-        
-        const lapTimeDisplay = document.createElement('span');
-        lapTimeDisplay.className = 'lap-time';
-        lapTimeDisplay.textContent = timeString;
-        
-        // Create lap name elements
-        const lapNameContainer = document.createElement('div');
-        lapNameContainer.className = 'lap-name-container';
-        
-        const lapNameInput = document.createElement('input');
-        lapNameInput.type = 'text';
-        lapNameInput.className = 'lap-name-input';
-        lapNameInput.placeholder = 'Enter lap name...';
-        
-        const saveButton = document.createElement('button');
-        saveButton.className = 'save-name-button';
-        saveButton.textContent = 'Save';
-        
-        const lapNameDisplay = document.createElement('span');
-        lapNameDisplay.className = 'lap-name-display';
-        lapNameDisplay.style.display = 'none';
-        
-        // Add save functionality
-        saveButton.addEventListener('click', function() {
-            const name = lapNameInput.value.trim();
-            if (name) {
-                lapNameDisplay.textContent = ` - ${name}`;
-                lapNameDisplay.style.display = 'inline';
-                lapNameContainer.removeChild(lapNameInput);
-                lapNameContainer.removeChild(saveButton);
+            const cardTitle = card.querySelector('h2').textContent.toLowerCase();
+            if (cardTitle.includes(query) || hasMatch) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
             }
         });
-        
-        // Assemble lap item
-        lapItem.appendChild(lapNumber);
-        lapItem.appendChild(lapTimeDisplay);
-        lapNameContainer.appendChild(lapNameInput);
-        lapNameContainer.appendChild(saveButton);
-        lapNameContainer.appendChild(lapNameDisplay);
-        lapItem.appendChild(lapNameContainer);
-        
-        // Add to laps container
-        const lapsContainer = document.getElementById('laps');
-        lapsContainer.insertBefore(lapItem, lapsContainer.firstChild);
-        
-        // Focus on the name input for immediate typing
-        lapNameInput.focus();
+    });
+}
+
+// Initialization
+function init() {
+    updateTime();
+    setInterval(updateTime, 1000);
+    setupSearch();
+
+    // Auto-focus search on load for maximum efficiency
+    if (elements.searchInput) {
+        elements.searchInput.focus();
     }
 }
 
-function resetStopwatch() {
-    clearInterval(stopwatchInterval);
-    stopwatchTime = 0;
-    lapCount = 0;
-    updateStopwatchDisplay();
-    document.getElementById('startStopwatch').textContent = 'Start';
-    document.getElementById('lapStopwatch').disabled = true;
-    document.getElementById('laps').innerHTML = '';
-    stopwatchRunning = false;
-}
-
-// Initialize on page load
-window.onload = function() {
-    // Set up local time with 1-second updates
-    updateLocalTime();
-    setInterval(updateLocalTime, 1000);
-    
-    // Set up tabs
-    setupTabs();
-    
-    // Set up timer controls
-    document.getElementById('startTimer').onclick = startTimer;
-    document.getElementById('resetTimer').onclick = resetTimer;
-    updateTimerDisplay();
-    
-    // Set up stopwatch controls
-    document.getElementById('startStopwatch').onclick = startStopwatch;
-    document.getElementById('lapStopwatch').onclick = lapStopwatch;
-    document.getElementById('resetStopwatch').onclick = resetStopwatch;
-    updateStopwatchDisplay();
-};
+document.addEventListener('DOMContentLoaded', init);

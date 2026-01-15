@@ -1,263 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Start Page - Rahul Kumar Ghosh</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
-            color: #333;
-        }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        header {
-            text-align: center;
-            margin-bottom: 40px;
-            color: white;
-        }
-
-        header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-        }
-
-        header h1 a {
-            color: white;
-            text-decoration: none;
-            transition: opacity 0.3s;
-        }
-
-        header h1 a:hover {
-            opacity: 0.8;
-        }
-
-        header h3 {
-            font-size: 1.2rem;
-            font-weight: 400;
-            opacity: 0.9;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 20px;
-            margin-bottom: 20px;
-        }
-
-        .card {
-            background: white;
-            border-radius: 12px;
-            padding: 24px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
-        }
-
-        .card h2 {
-            font-size: 1.5rem;
-            margin-bottom: 16px;
-            color: #667eea;
-            border-bottom: 2px solid #667eea;
-            padding-bottom: 8px;
-        }
-
-        .card h3 {
-            font-size: 1.1rem;
-            margin: 16px 0 8px;
-            color: #764ba2;
-        }
-
-        .card ul {
-            list-style: none;
-        }
-
-        .card ul ul {
-            margin-left: 20px;
-        }
-
-        .card li {
-            margin: 8px 0;
-        }
-
-        .card a {
-            color: #667eea;
-            text-decoration: none;
-            transition: color 0.3s;
-            display: inline-block;
-            padding: 4px 0;
-        }
-
-        .card a:hover {
-            color: #764ba2;
-            text-decoration: underline;
-        }
-
-        .time-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-
-        .time-card h2 {
-            color: white;
-            border-bottom-color: white;
-        }
-
-        .time-display {
-            font-size: 2rem;
-            font-weight: 600;
-            text-align: center;
-            margin: 10px 0;
-        }
-
-        .timer-section {
-            background: white;
-            border-radius: 12px;
-            padding: 24px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
-        }
-
-        .tab-buttons {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .tab-button {
-            flex: 1;
-            padding: 12px 24px;
-            border: none;
-            background: #f0f0f0;
-            color: #333;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: all 0.3s;
-        }
-
-        .tab-button.active {
-            background: #667eea;
-            color: white;
-        }
-
-        .tab-button:hover {
-            background: #764ba2;
-            color: white;
-        }
-
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        .timer-controls {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-
-        .timer-input {
-            padding: 10px;
-            border: 2px solid #667eea;
-            border-radius: 8px;
-            font-size: 1rem;
-            width: 80px;
-        }
-
-        .timer-button {
-            padding: 10px 24px;
-            border: none;
-            background: #667eea;
-            color: white;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: background 0.3s;
-        }
-
-        .timer-button:hover {
-            background: #764ba2;
-        }
-
-        .timer-button:disabled {
-            background: #ccc;
-            cursor: not-allowed;
-        }
-
-        .laps-container {
-            margin-top: 20px;
-            max-height: 200px;
-            overflow-y: auto;
-        }
-
-        .lap {
-            padding: 8px;
-            background: #f0f0f0;
-            margin: 5px 0;
-            border-radius: 4px;
-        }
-
-        @media (max-width: 768px) {
-            header h1 {
-                font-size: 2rem;
-            }
-
-            .grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+    <title>Dashboard - Rahul Kumar Ghosh</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
 </head>
+
 <body>
     <div class="container">
         <header>
-            <h1><a href="https://qknot.github.io/Portfolio/" target="_blank">Rahul Kumar Ghosh</a></h1>
-            <h3>B.Sc. in Computer Science and Engineering</h3>
+            <div class="header-content">
+                <div class="title-group">
+                    <h1><a href="https://qknot.github.io/Portfolio/" target="_blank">Rahul Kumar Ghosh</a></h1>
+                    <h3>B.Sc. in Computer Science and Engineering</h3>
+                </div>
+                <div class="header-clock">
+                    <div id="clockTime" class="clock-time">00:00:00</div>
+                    <div id="clockDate" class="clock-date">Thursday, January 15, 2026</div>
+                </div>
+            </div>
         </header>
-        <div class="grid">
+
+        <div class="search-container">
+            <input type="text" id="searchInput" class="search-input" placeholder="Search links or tools...">
+        </div>
+
+        <div class="grid" id="linksGrid">
             <div class="card">
-                <h2>Important Links</h2>
+                <h2><i data-lucide="link"></i> Important Links</h2>
                 <ul>
-                    <li><a href="https://learning.quantum.ibm.com/course/basics-of-quantum-information" target="_blank">Basic Quantum Information</a></li>
+                    <li><a href="https://scholar.google.com/?pli=1" target="_blank">Google Scholar</a></li>
                     <li><a href="https://github.com/QKnot" target="_blank">Github</a></li>
-                    <li><a href="https://gitlab.com/QKnot" target="_blank">Gitlab</a></li>
                     <li><a href="https://mail.google.com/mail/u/0/#inbox" target="_blank">Gmail</a></li>
-                    <li><a href="https://docs.google.com/document/d/1GNmWHL917Z0Bi8FUKjmBAOYcDsUCueNTaZnRwffglZI/edit?tab=t.0#heading=h.tx5po35aoeh2" target="_blank">Daily Plan</a></li>
-                    <li><a href="https://docs.google.com/document/u/0/?ec=wgc-docs-globalnav-goto" target="_blank">Google Docs</a></li>
+                    <li><a href="https://docs.google.com/document/d/1GNmWHL917Z0Bi8FUKjmBAOYcDsUCueNTaZnRwffglZI/edit?tab=t.0#heading=h.tx5po35aoeh2"
+                            target="_blank">Daily Plan</a></li>
+                    <li><a href="https://docs.google.com/document/u/0/?ec=wgc-docs-globalnav-goto"
+                            target="_blank">Google Docs</a></li>
                     <li><a href="https://classroom.google.com/u/1/" target="_blank">Google Classroom</a></li>
-                    <li><a href="https://qknot.github.io/University-Formal-Application-Generator/" target="_blank">University Formal Application Generator</a></li>
-                    <li><a href="https://snippet-generator.app/?description=&tabtrigger=&snippet=&mode=vscode" target="_blank">VS Code Snippet Generator</a></li>
+                    <li><a href="https://snippet-generator.app/?description=&tabtrigger=&snippet=&mode=vscode"
+                            target="_blank">VS Code Snippet Generator</a></li>
                     <li><a href="https://www.overleaf.com/" target="_blank">Overleaf</a></li>
-                    <li><a href="https://polygon.codeforces.com/login?ccid=92167f2a04b23c084c43381620753a3c" target="_blank">Codeforces Polygon</a></li>
+                    <li><a href="https://polygon.codeforces.com/login?ccid=92167f2a04b23c084c43381620753a3c"
+                            target="_blank">Codeforces Polygon</a></li>
                 </ul>
             </div>
 
             <div class="card">
-                <h2>Large Language Models</h2>
+                <h2><i data-lucide="message-square"></i> AI & LLMs</h2>
                 <ul>
                     <li><a href="https://x.com/i/grok" target="_blank">Grok</a></li>
                     <li><a href="https://chat.openai.com/" target="_blank">ChatGPT</a></li>
@@ -271,278 +64,97 @@
                     <li><a href="https://www.phind.com/" target="_blank">Phind</a></li>
                     <li><a href="https://www.mistral.ai/" target="_blank">Mistral</a></li>
                     <li><a href="https://pi.ai/" target="_blank">Pi AI</a></li>
-                    <li><a href="https://www.anthropic.com/claude" target="_blank">Anthropic Claude</a></li>
                 </ul>
             </div>
 
             <div class="card">
-                <h2>AI & Machine Learning</h2>
-                <h3>Machine Learning</h3>
+                <h2><i data-lucide="cpu"></i> AI & ML Learning</h2>
                 <ul>
-                    <li><a href="https://openlearninglibrary.mit.edu/courses/course-v1:MITx+6.036+1T2019/course/" target="_blank">Introduction to Machine Learning</a></li>
-                    <li><a href="https://www.coursera.org/specializations/machine-learning-introduction" target="_blank">Machine Learning</a></li>
-                    <li><a href="https://www.coursera.org/learn/machine-learning?specialization=machine-learning-introduction" target="_blank">Supervised Machine Learning</a></li>
+                    <li><a href="https://openlearninglibrary.mit.edu/courses/course-v1:MITx+6.036+1T2019/course/"
+                            target="_blank">MIT Intro to ML</a></li>
+                    <li><a href="https://www.coursera.org/specializations/machine-learning-introduction"
+                            target="_blank">ML Specialization</a></li>
+                    <li><a href="https://www.coursera.org/learn/machine-learning?specialization=machine-learning-introduction"
+                            target="_blank">Supervised ML</a></li>
+                    <li><a href="https://cloud.google.com/explainable-ai" target="_blank">Explainable AI</a></li>
+
                 </ul>
             </div>
 
             <div class="card">
-                <h2>Problem Solving</h2>
-                <h3>Algorithmic Problem Solving</h3>
+                <h2><i data-lucide="code"></i> Problem Solving</h2>
                 <ul>
-                    <li><a href="https://www.techinterviewhandbook.org/grind75/?hours=7&weeks=26" target="_blank">Grind 75</a></li>
+                    <li><a href="https://www.techinterviewhandbook.org/grind75/?hours=7&weeks=26" target="_blank">Grind
+                            75</a></li>
                     <li><a href="https://neetcode.io/" target="_blank">Neetcode</a></li>
-                    <ul>
-                        <li><a href="https://neetcode.io/roadmap" target="_blank">Neetcode Road Map</a></li>
-                    </ul>
-                    <li><a href="https://docs.google.com/spreadsheets/d/1qs8bK52JaCmOzykI09-dXWEVo6avoVbNLVgSwLE7RpU/edit?gid=0#gid=0" target="_blank">LeetCode Problem List</a></li>
-                    <li><a href="https://leetcode.com/u/QKnot/" target="_blank">LeetCode</a></li>
-                </ul>
-                <h3>Competitive Programming</h3>
-                <ul>
+                    <li><a href="https://leetcode.com/u/QKnot/" target="_blank">LeetCode Profile</a></li>
                     <li><a href="https://youkn0wwho.academy/topic-list" target="_blank">YouKn0wwho</a></li>
                     <li><a href="https://usaco.guide/dashboard" target="_blank">USACO Guide</a></li>
                     <li><a href="https://codeforces.com/profile/QKnot" target="_blank">Codeforces</a></li>
                     <li><a href="https://cses.fi/problemset/" target="_blank">CSES</a></li>
-                    <li><a href="https://themecp.vercel.app/" target="_blank">Theme CP</a></li>
                 </ul>
             </div>
 
-            <div class="card">
-                <h2>Quantum Computing</h2>
+            <!-- <div class="card">
+                <h2><i data-lucide="atom"></i> Quantum</h2>
                 <ul>
                     <li><a href="https://openqasm.com/" target="_blank">OpenQASM</a></li>
-                    <li><a href="https://quantum-computing.ibm.com/" target="_blank">IBM Quantum Computing</a></li>
+                    <li><a href="https://quantum-computing.ibm.com/" target="_blank">IBM Quantum</a></li>
                     <li><a href="https://qiskit.org/" target="_blank">Qiskit</a></li>
                     <li><a href="https://quantumai.google/" target="_blank">Google Quantum AI</a></li>
-                    <li><a href="https://www.rigetti.com/" target="_blank">Rigetti</a></li>
                     <li><a href="https://qiskit.org/textbook/preface.html" target="_blank">Qiskit Textbook</a></li>
-                    <li><a href="https://aqora.io/" target="_blank">Aqora</a></li>
                 </ul>
-            </div>
+            </div> -->
 
             <div class="card">
-                <h2>Courses</h2>
+                <h2><i data-lucide="book-open"></i> Courses</h2>
                 <ul>
-                    <li><a href="https://ocw.mit.edu/" target="_blank">MIT OpenCourseWare</a></li>
+                    <li><a href="https://ocw.mit.edu/" target="_blank">MIT OCW</a></li>
                     <li><a href="https://www.coursera.org/" target="_blank">Coursera</a></li>
                     <li><a href="https://www.edx.org/" target="_blank">edX</a></li>
                 </ul>
             </div>
 
             <div class="card">
-                <h2>Resources</h2>
-                <h3>Programming Languages</h3>
-                <ul>
-                    <li><a href="https://en.cppreference.com/w/" target="_blank">C++ Reference</a></li>
-                    <li><a href="https://en.cppreference.com/w/c" target="_blank">C Reference</a></li>
-                </ul>
-                <h3>Learning English</h3>
-                <ul>
-                    <li><a href="https://learnenglish.britishcouncil.org/" target="_blank">British Council</a></li>
-                    <li><a href="https://www.bbc.co.uk/learningenglish/english/basic-grammar-guide" target="_blank">BBC English</a></li>
-                </ul>
-            </div>
-
-            <div class="card">
-                <h2>Public Figures</h2>
+                <h2><i data-lucide="user"></i> Figures</h2>
                 <ul>
                     <li><a href="https://www.lexfridman.com/" target="_blank">Lex Fridman</a></li>
                     <li><a href="https://www.cs.toronto.edu/~ilya/" target="_blank">Ilya Sutskever</a></li>
-                    <li><a href="https://matt.might.net/" target="_blank">Matt Might</a></li>
-                    <li><a href="https://www.scottaaronson.com/" target="_blank">Scott Aaronson</a></li>
-                    <li><a href="https://michaelnielsen.org/" target="_blank">Michael Nielsen</a></li>
                     <li><a href="http://karpathy.github.io/" target="_blank">Andrej Karpathy</a></li>
-                    <li><a href="https://www.preskill.caltech.edu/" target="_blank">John Preskill</a></li>
+                    <li><a href="https://www.scottaaronson.com/" target="_blank">Scott Aaronson</a></li>
                 </ul>
             </div>
 
             <div class="card">
-                <h2>Social Media</h2>
+                <h2><i data-lucide="share-2"></i> Social & Media</h2>
                 <ul>
                     <li><a href="https://open.spotify.com/" target="_blank">Spotify</a></li>
                     <li><a href="https://x.com/home" target="_blank">X (Twitter)</a></li>
                     <li><a href="https://www.linkedin.com/feed/" target="_blank">LinkedIn</a></li>
                     <li><a href="https://www.youtube.com/" target="_blank">YouTube</a></li>
                     <li><a href="https://www.reddit.com/" target="_blank">Reddit</a></li>
-                    <li><a href="https://www.pinterest.com/" target="_blank">Pinterest</a></li>
+                    <li><a href="https://discord.com/users/qknot" target="_blank">Discord</a></li>
+                    <li><a href="https://www.facebook.com/qknot1729" target="_blank">Facebook</a></li>
+                    <li><a href="https://www.instagram.com/qknot1729" target="_blank">Instagram</a></li>
+                    <li><a href="https://www.pinterest.com/qknot03/" target="_blank">Pinterest</a></li>
+
                 </ul>
             </div>
 
             <div class="card">
-                <h2>Game</h2>
+                <h2><i data-lucide="award"></i> Games</h2>
                 <ul>
                     <li><a href="https://www.chess.com/home" target="_blank">Chess</a></li>
                 </ul>
             </div>
         </div>
-        <div class="time-card card">
-            <h2>Current Time</h2>
-            <div id="localTime" class="time-display"></div>
-            <div id="localDate" class="time-display" style="font-size: 1.2rem;"></div>
-        </div>
-        <div class="timer-section">
-            <div class="tab-buttons">
-                <button id="timerTab" class="tab-button active">Timer</button>
-                <button id="stopwatchTab" class="tab-button">Stopwatch</button>
-            </div>
-            
-            <div id="timerContent" class="tab-content active">
-                <div class="timer-controls">
-                    <input type="number" id="minutes" min="0" max="180" value="25" class="timer-input">
-                    <label for="minutes">minutes</label>
-                    <button id="startTimer" class="timer-button">Start</button>
-                    <button id="resetTimer" class="timer-button">Reset</button>
-                </div>
-                <div id="timerDisplay" class="time-display">25:00</div>
-            </div>
-            
-            <div id="stopwatchContent" class="tab-content">
-                <div class="timer-controls">
-                    <button id="startStopwatch" class="timer-button">Start</button>
-                    <button id="lapStopwatch" class="timer-button" disabled>Lap</button>
-                    <button id="resetStopwatch" class="timer-button">Reset</button>
-                </div>
-                <div id="stopwatchDisplay" class="time-display">00:00:00</div>
-                <div id="laps" class="laps-container"></div>
-            </div>
-        </div>
     </div>
 
+    <script src="app.js"></script>
     <script>
-        // Time Display
-        function updateTime() {
-            const now = new Date();
-            const timeStr = now.toLocaleTimeString('en-US', { hour12: false });
-            const dateStr = now.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-            document.getElementById('localTime').textContent = timeStr;
-            document.getElementById('localDate').textContent = dateStr;
-        }
-        updateTime();
-        setInterval(updateTime, 1000);
-
-        // Tab functionality
-        const timerTab = document.getElementById('timerTab');
-        const stopwatchTab = document.getElementById('stopwatchTab');
-        const timerContent = document.getElementById('timerContent');
-        const stopwatchContent = document.getElementById('stopwatchContent');
-
-        timerTab.addEventListener('click', () => {
-            timerTab.classList.add('active');
-            stopwatchTab.classList.remove('active');
-            timerContent.classList.add('active');
-            stopwatchContent.classList.remove('active');
-        });
-
-        stopwatchTab.addEventListener('click', () => {
-            stopwatchTab.classList.add('active');
-            timerTab.classList.remove('active');
-            stopwatchContent.classList.add('active');
-            timerContent.classList.remove('active');
-        });
-
-        // Timer functionality
-        let timerInterval;
-        let timerSeconds = 0;
-        const minutesInput = document.getElementById('minutes');
-        const startTimer = document.getElementById('startTimer');
-        const resetTimer = document.getElementById('resetTimer');
-        const timerDisplay = document.getElementById('timerDisplay');
-
-        function updateTimerDisplay() {
-            const mins = Math.floor(timerSeconds / 60);
-            const secs = timerSeconds % 60;
-            timerDisplay.textContent = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
-        }
-
-        startTimer.addEventListener('click', () => {
-            if (timerInterval) {
-                clearInterval(timerInterval);
-                timerInterval = null;
-                startTimer.textContent = 'Start';
-            } else {
-                if (timerSeconds === 0) {
-                    timerSeconds = parseInt(minutesInput.value) * 60;
-                }
-                timerInterval = setInterval(() => {
-                    timerSeconds--;
-                    updateTimerDisplay();
-                    if (timerSeconds === 0) {
-                        clearInterval(timerInterval);
-                        timerInterval = null;
-                        startTimer.textContent = 'Start';
-                        alert('Timer finished!');
-                    }
-                }, 1000);
-                startTimer.textContent = 'Pause';
-            }
-        });
-
-        resetTimer.addEventListener('click', () => {
-            clearInterval(timerInterval);
-            timerInterval = null;
-            timerSeconds = parseInt(minutesInput.value) * 60;
-            updateTimerDisplay();
-            startTimer.textContent = 'Start';
-        });
-
-        minutesInput.addEventListener('change', () => {
-            if (!timerInterval) {
-                timerSeconds = parseInt(minutesInput.value) * 60;
-                updateTimerDisplay();
-            }
-        });
-
-        // Stopwatch functionality
-        let stopwatchInterval;
-        let stopwatchMs = 0;
-        let lapCounter = 0;
-        const startStopwatch = document.getElementById('startStopwatch');
-        const lapStopwatch = document.getElementById('lapStopwatch');
-        const resetStopwatch = document.getElementById('resetStopwatch');
-        const stopwatchDisplay = document.getElementById('stopwatchDisplay');
-        const lapsContainer = document.getElementById('laps');
-
-        function updateStopwatchDisplay() {
-            const hours = Math.floor(stopwatchMs / 3600000);
-            const mins = Math.floor((stopwatchMs % 3600000) / 60000);
-            const secs = Math.floor((stopwatchMs % 60000) / 1000);
-            stopwatchDisplay.textContent = `${String(hours).padStart(2, '0')}:${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
-        }
-
-        startStopwatch.addEventListener('click', () => {
-            if (stopwatchInterval) {
-                clearInterval(stopwatchInterval);
-                stopwatchInterval = null;
-                startStopwatch.textContent = 'Start';
-                lapStopwatch.disabled = true;
-            } else {
-                stopwatchInterval = setInterval(() => {
-                    stopwatchMs += 10;
-                    updateStopwatchDisplay();
-                }, 10);
-                startStopwatch.textContent = 'Stop';
-                lapStopwatch.disabled = false;
-            }
-        });
-
-        lapStopwatch.addEventListener('click', () => {
-            lapCounter++;
-            const lapDiv = document.createElement('div');
-            lapDiv.className = 'lap';
-            lapDiv.textContent = `Lap ${lapCounter}: ${stopwatchDisplay.textContent}`;
-            lapsContainer.insertBefore(lapDiv, lapsContainer.firstChild);
-        });
-
-        resetStopwatch.addEventListener('click', () => {
-            clearInterval(stopwatchInterval);
-            stopwatchInterval = null;
-            stopwatchMs = 0;
-            lapCounter = 0;
-            updateStopwatchDisplay();
-            startStopwatch.textContent = 'Start';
-            lapStopwatch.disabled = true;
-            lapsContainer.innerHTML = '';
-        });
+        // Initialize Lucide icons
+        lucide.createIcons();
     </script>
 </body>
+
 </html>
