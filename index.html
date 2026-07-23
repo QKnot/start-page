@@ -4,10 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Rahul Kumar Ghosh</title>
+    <title>~/dashboard — Rahul Kumar Ghosh</title>
     <link rel="stylesheet" href="styles.css">
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 
 <body>
@@ -15,23 +13,35 @@
         <header>
             <div class="header-content">
                 <div class="title-group">
+                    <p class="prompt-line"><span class="prompt-symbol">❯</span> whoami</p>
                     <h1><a href="https://qknot.github.io/Portfolio/" target="_blank">Rahul Kumar Ghosh</a></h1>
-                    <h3>B.Sc. in Computer Science and Engineering</h3>
+                    <p class="subtitle">// B.Sc. in Computer Science &amp; Engineering</p>
                 </div>
-                <div class="header-clock">
-                    <div id="clockTime" class="clock-time">00:00:00</div>
-                    <div id="clockDate" class="clock-date">Thursday, January 15, 2026</div>
+                <div class="status-bar">
+                    <span class="status-dot" aria-hidden="true"></span>
+                    <div class="status-text">
+                        <span id="clockTime" class="clock-time">00:00:00</span>
+                        <span id="clockDate" class="clock-date">Thursday, January 15, 2026</span>
+                    </div>
                 </div>
             </div>
         </header>
 
         <div class="search-container">
-            <input type="text" id="searchInput" class="search-input" placeholder="Search links or tools...">
+            <span class="search-prompt" aria-hidden="true">❯</span>
+            <input type="text" id="searchInput" class="search-input" placeholder="search links or tools"
+                autocomplete="off" spellcheck="false">
         </div>
 
         <div class="grid" id="linksGrid">
-            <div class="card">
-                <h2><i data-lucide="link"></i> Important Links</h2>
+
+            <div class="card card--wide" style="--accent:#c792ea">
+                <div class="card-titlebar">
+                    <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                    <span class="filename">links.sh</span>
+                    <span class="count">15 items</span>
+                </div>
+                <h2 class="card-heading">Important Links</h2>
                 <ul>
                     <li><a href="https://scholar.google.com/?pli=1" target="_blank">Google Scholar</a></li>
                     <li><a href="https://github.com/QKnot" target="_blank">Github</a></li>
@@ -55,8 +65,13 @@
                 </ul>
             </div>
 
-            <div class="card">
-                <h2><i data-lucide="message-square"></i> AI & LLMs</h2>
+            <div class="card card--wide" style="--accent:#82aaff">
+                <div class="card-titlebar">
+                    <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                    <span class="filename">chat.py</span>
+                    <span class="count">14 items</span>
+                </div>
+                <h2 class="card-heading">AI &amp; LLMs</h2>
                 <ul>
                     <li><a href="https://x.com/i/grok" target="_blank">Grok</a></li>
                     <li><a href="https://chat.openai.com/" target="_blank">ChatGPT</a></li>
@@ -75,8 +90,13 @@
                 </ul>
             </div>
 
-            <div class="card">
-                <h2><i data-lucide="cpu"></i> AI & ML Learning</h2>
+            <div class="card" style="--accent:#89ca78">
+                <div class="card-titlebar">
+                    <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                    <span class="filename">study.ipynb</span>
+                    <span class="count">4 items</span>
+                </div>
+                <h2 class="card-heading">AI &amp; ML Learning</h2>
                 <ul>
                     <li><a href="https://openlearninglibrary.mit.edu/courses/course-v1:MITx+6.036+1T2019/course/"
                             target="_blank">MIT Intro to ML</a></li>
@@ -85,12 +105,16 @@
                     <li><a href="https://www.coursera.org/learn/machine-learning?specialization=machine-learning-introduction"
                             target="_blank">Supervised ML</a></li>
                     <li><a href="https://cloud.google.com/explainable-ai" target="_blank">Explainable AI</a></li>
-
                 </ul>
             </div>
 
-            <div class="card">
-                <h2><i data-lucide="code"></i> Problem Solving</h2>
+            <div class="card" style="--accent:#f78c6c">
+                <div class="card-titlebar">
+                    <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                    <span class="filename">solve.cpp</span>
+                    <span class="count">7 items</span>
+                </div>
+                <h2 class="card-heading">Problem Solving</h2>
                 <ul>
                     <li><a href="https://www.techinterviewhandbook.org/grind75/?hours=7&weeks=26" target="_blank">Grind
                             75</a></li>
@@ -114,8 +138,13 @@
                 </ul>
             </div> -->
 
-            <div class="card">
-                <h2><i data-lucide="book-open"></i> Courses</h2>
+            <div class="card" style="--accent:#89ddff">
+                <div class="card-titlebar">
+                    <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                    <span class="filename">courses.md</span>
+                    <span class="count">3 items</span>
+                </div>
+                <h2 class="card-heading">Courses</h2>
                 <ul>
                     <li><a href="https://ocw.mit.edu/" target="_blank">MIT OCW</a></li>
                     <li><a href="https://www.coursera.org/" target="_blank">Coursera</a></li>
@@ -123,8 +152,13 @@
                 </ul>
             </div>
 
-            <div class="card">
-                <h2><i data-lucide="user"></i> Figures</h2>
+            <div class="card" style="--accent:#ff5874">
+                <div class="card-titlebar">
+                    <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                    <span class="filename">mentors.md</span>
+                    <span class="count">5 items</span>
+                </div>
+                <h2 class="card-heading">Figures</h2>
                 <ul>
                     <li><a href="https://matt.might.net/" target="_blank">Matt Might</a></li>
                     <li><a href="https://www.lexfridman.com/" target="_blank">Lex Fridman</a></li>
@@ -134,8 +168,13 @@
                 </ul>
             </div>
 
-            <div class="card">
-                <h2><i data-lucide="share-2"></i> Social & Media</h2>
+            <div class="card card--wide" style="--accent:#c792ea">
+                <div class="card-titlebar">
+                    <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                    <span class="filename">social.json</span>
+                    <span class="count">18 items</span>
+                </div>
+                <h2 class="card-heading">Social &amp; Media</h2>
                 <ul>
                     <li><a href="https://open.spotify.com/" target="_blank">Spotify</a></li>
                     <li><a href="https://x.com/home" target="_blank">X (Twitter)</a></li>
@@ -158,20 +197,24 @@
                 </ul>
             </div>
 
-            <div class="card">
-                <h2><i data-lucide="award"></i> Games</h2>
+            <div class="card" style="--accent:#82aaff">
+                <div class="card-titlebar">
+                    <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                    <span class="filename">play.exe</span>
+                    <span class="count">1 item</span>
+                </div>
+                <h2 class="card-heading">Games</h2>
                 <ul>
                     <li><a href="https://www.chess.com/home" target="_blank">Chess</a></li>
                 </ul>
             </div>
+
         </div>
+
+        <p id="noResults" class="no-results">// no matches found — try a different query</p>
     </div>
 
     <script src="app.js"></script>
-    <script>
-        // Initialize Lucide icons
-        lucide.createIcons();
-    </script>
 </body>
 
 </html>
